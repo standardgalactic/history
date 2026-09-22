@@ -22,7 +22,7 @@ your measurements become worse than useless. They become actively misleading.
 And untangling that incredibly murky intertwined relationship is exactly what we are waiting
 into today. So welcome to the deep dive. Glad to be here. We are immersing ourselves in a highly
 complex, mathematically dense, but just utterly fascinating draft paper from July, 2026. The author
-is Flitian, and it is titled Repair Categories and the Local Geometry of Continuation.
+is Flyxion, and it is titled Repair Categories and the Local Geometry of Continuation.
 It is a remarkable, challenging piece of work. It sits at this incredibly leading-edge intersection
 of category theory, information geometry, and theoretical computer science.
 Yeah, it's a lot.
@@ -477,7 +477,7 @@ What mathematical structure remains completely monotone, meaning it never magica
 and remains perfectly invariant exactly when those translations don't lose any information?
 And Chensov successfully proved that the Fischer metric is the singular, unique structure that survives those exact mathematical constraints.
 Exactly.
-The author of our paper, Flipchin, attempts to run that exact same foundational play,
+The author of our paper, Flyxion, attempts to run that exact same foundational play,
 but they are applying it to finite continuation systems instead of statistical probability models.
 To hunt for these invariants, the paper introduces a tool called admissibility morphisms.
 Right.
@@ -861,7 +861,7 @@ the true bedrock answer is not a smooth connection, and it is not a symmetric me
 It is the raw, unvarnished, bi-directed cost.
 So, as we reach the end of this journey, what does this all practically mean?
 We've waded through a discrete 12-state model, law of air enrichment, local coherence certificates, the amalgamation trick, and Iguchi constructions.
-How should a listener interpret the ultimate conclusion of Fliction's paper?
+How should a listener interpret the ultimate conclusion of Flyxion's paper?
 The author is highly self-aware, and actually offers two distinct interpretations of their own central theorem in the final section.
 The first interpretation is what they call the deflationary reading.
 It is highly austere.

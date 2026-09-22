@@ -1,0 +1,2669 @@
+WEBVTT
+
+00:00.000 --> 00:02.500
+Usually a document is just, you know, it's harmless.
+
+00:02.940 --> 00:06.620
+Like you read a legal contract and the ink just sits there on the page.
+
+00:06.700 --> 00:08.100
+It describes a rule for you.
+
+00:08.200 --> 00:08.900
+Yeah, exactly.
+
+00:09.020 --> 00:12.060
+Or you look at a painting and it just shows you a scene.
+
+00:12.260 --> 00:17.540
+I mean, our entire relationship with the written word is based on this expectation of passivity.
+
+00:17.900 --> 00:18.720
+It's just a description.
+
+00:18.980 --> 00:19.200
+Right.
+
+00:19.620 --> 00:24.740
+We like our descriptions of the world to be neatly separated from the physical mechanics of the world itself.
+
+00:24.920 --> 00:26.360
+You know, you can always just close the book.
+
+00:26.360 --> 00:30.800
+But what if a document didn't just describe a rule?
+
+00:31.080 --> 00:34.260
+What if the text physically built the walls and locked the doors?
+
+00:34.660 --> 00:37.680
+Well, I mean, it fundamentally changes what it means to write, doesn't it?
+
+00:37.780 --> 00:38.020
+Yeah.
+
+00:38.140 --> 00:41.980
+You are no longer just writing a description of an action.
+
+00:42.080 --> 00:51.300
+You're actually constructing a rigid structural boundary that the universe, or well, at least the computational universe, literally cannot disobey.
+
+00:51.480 --> 00:51.900
+Exactly.
+
+00:52.540 --> 00:54.380
+So welcome to this deep dive.
+
+00:54.380 --> 01:00.880
+Today, we are looking at a computational language where punctuation is not just a grammatical suggestion.
+
+01:01.220 --> 01:03.440
+It is a physical law.
+
+01:03.680 --> 01:04.780
+A literal physical law.
+
+01:05.000 --> 01:05.200
+Right.
+
+01:05.680 --> 01:10.220
+We're exploring a 2026 paper by an independent researcher named Flyxion.
+
+01:10.740 --> 01:16.580
+It's titled Following the Evaluator, an ASCII language for bounded state transition.
+
+01:16.780 --> 01:17.500
+It's quite a title.
+
+01:17.660 --> 01:18.340
+It is, yeah.
+
+01:18.340 --> 01:26.540
+And the mission of this deep dive for you listening today is to explore a total ground-up rethinking of programming languages.
+
+01:27.140 --> 01:28.880
+I mean, think about punctuation for a second.
+
+01:29.520 --> 01:33.260
+We normally use commas and parentheses just to group text together, right?
+
+01:33.320 --> 01:34.980
+Just so we can read it without getting confused.
+
+01:35.040 --> 01:36.400
+Yeah, just visual aids, basically.
+
+01:36.560 --> 01:39.140
+But Flyxion asks a completely different question here.
+
+01:39.140 --> 01:48.140
+What if punctuation actively controlled, restricted, and audited what a computer could physically do at any given microsecond?
+
+01:48.140 --> 01:52.960
+And I should say right up front, the source material we are pulling from today is a very dense essay.
+
+01:53.080 --> 01:53.520
+Oh, yeah.
+
+01:53.740 --> 01:54.200
+Very, yes.
+
+01:54.300 --> 02:01.760
+You glance at the original PDF, you were just immediately hit with a wall of Greek letters, logical proofs, transition relations.
+
+02:01.940 --> 02:04.260
+It looks like high-level theoretical physics or something.
+
+02:04.420 --> 02:05.120
+It really does.
+
+02:05.260 --> 02:05.420
+Yeah.
+
+02:05.480 --> 02:09.540
+But beneath all those equations, Flyxion is actually writing about something deeply human.
+
+02:09.880 --> 02:12.640
+It's about how we represent reality, you know?
+
+02:12.640 --> 02:17.280
+How we define an action, and ultimately how we record history itself.
+
+02:17.780 --> 02:27.200
+So my goal here is to translate that formal math into the underlying mechanism so we can really understand why this changes our relationship with software entirely.
+
+02:27.440 --> 02:34.020
+Well, let's start with how we currently think about code, because the mind shift really has to start with something as basic as a parenthesis.
+
+02:34.160 --> 02:34.420
+Sure.
+
+02:34.540 --> 02:41.100
+Because in most programming languages, or even just in basic middle school math, right, a parenthesis is just a grouping symbol.
+
+02:41.100 --> 02:42.440
+It's a way to organize things.
+
+02:42.440 --> 02:45.800
+Right, like, take PEMDAS, please excuse my dear Aunt Sally.
+
+02:45.980 --> 02:47.340
+We all remember that, right?
+
+02:48.000 --> 02:48.960
+Unfortunately, yes.
+
+02:49.140 --> 02:58.820
+So if you have 3 plus 4 inside parentheses, and then you multiply that by 2, the parentheses are just there to resolve the ambiguity of the sentence.
+
+02:58.960 --> 03:00.060
+They just tell you what to do first.
+
+03:00.120 --> 03:00.560
+Exactly.
+
+03:01.000 --> 03:02.300
+They tell you to do the addition first.
+
+03:02.440 --> 03:06.720
+And then, once you've done it, those parentheses just completely vanish from your mind.
+
+03:06.820 --> 03:08.300
+They disappear completely.
+
+03:08.300 --> 03:14.420
+And, you know, in computer science, this vanishing act actually happens inside what we call the parser.
+
+03:14.640 --> 03:15.880
+Okay, unpack that for us.
+
+03:16.320 --> 03:21.820
+So when you write a piece of code, the computer doesn't actually execute the exact text you typed.
+
+03:22.200 --> 03:29.400
+It reads your text, and it builds this internal model, a sort of blueprint, which we call an abstract syntax tree, or an AST.
+
+03:29.540 --> 03:30.360
+Right, the AST.
+
+03:30.360 --> 03:37.900
+Yeah, and those commas, semicolons, and parentheses that you typed out, they were really just scaffolding to help the compiler build that tree.
+
+03:38.060 --> 03:39.120
+Just temporary support.
+
+03:39.220 --> 03:39.600
+Exactly.
+
+03:40.040 --> 03:43.440
+Once the tree is built, the punctuation marks are literally thrown in the trash.
+
+03:43.960 --> 03:46.060
+They do not exist when the program actually runs.
+
+03:46.160 --> 03:49.600
+Okay, but Flyxion proposes the exact opposite discipline here.
+
+03:49.660 --> 03:50.640
+Completely the opposite.
+
+03:50.640 --> 04:01.380
+In this experimental language, every single primitive symbol must correspond to a distinct physical restriction on what the machine running the code is allowed to do.
+
+04:01.500 --> 04:01.800
+Yes.
+
+04:01.920 --> 04:03.600
+So the punctuation doesn't vanish.
+
+04:03.740 --> 04:05.380
+It actually becomes the environment.
+
+04:05.620 --> 04:05.800
+Right.
+
+04:05.980 --> 04:11.280
+And to understand the origin of this idea, the paper points back to an old teaching tool used for LISP.
+
+04:11.540 --> 04:12.320
+Okay, LISP.
+
+04:12.320 --> 04:19.180
+Yeah, so LISP is a family of programming languages that dates all the way back to the late 1950s, actually, created by John McCarthy.
+
+04:19.600 --> 04:21.240
+It's ancient in computer years.
+
+04:21.380 --> 04:22.020
+It really is.
+
+04:22.460 --> 04:26.180
+And LISP is famous for its incredibly heavy use of nested parentheses.
+
+04:27.280 --> 04:31.640
+Like, code in LISP just looks like a giant sea of curved brackets.
+
+04:31.740 --> 04:33.440
+Just walls of parentheses.
+
+04:33.560 --> 04:34.000
+Pretty much.
+
+04:34.180 --> 04:41.380
+And when professors teach nested expressions to beginners, they often use a visual aid called the circles of evaluation.
+
+04:41.380 --> 04:41.980
+Right.
+
+04:42.360 --> 04:47.400
+Instead of writing parentheses, you literally draw circles inside of circles on a whiteboard.
+
+04:47.540 --> 04:53.000
+So if you have a math problem inside a math problem, it's basically just a small circle inside a bigger circle.
+
+04:53.160 --> 04:53.520
+Exactly.
+
+04:53.900 --> 04:56.860
+And the rule of these circles is incredibly strict.
+
+04:57.540 --> 05:04.020
+To evaluate the outermost circle, the computer must first conceptually step inside the inner circle.
+
+05:04.140 --> 05:04.460
+Okay.
+
+05:04.640 --> 05:09.960
+As a solve whatever is in there, reduce it down to a single value, and then, you know, hand that value back outward.
+
+05:10.060 --> 05:10.960
+Right, I see.
+
+05:10.960 --> 05:16.080
+You literally cannot solve the outer layer until the inner layer has fully collapsed into an answer.
+
+05:16.080 --> 05:21.840
+So imagine punctuation not as grammatical markings on a page, but as physical rooms in a building.
+
+05:22.060 --> 05:22.640
+I like that.
+
+05:22.920 --> 05:30.660
+Because in a normal language, like, say, Python or JavaScript, a parenthesis is like a line drawn on the floor with tape, you know?
+
+05:30.760 --> 05:32.080
+Yeah, just a visual suggestion.
+
+05:32.180 --> 05:35.360
+Right, a visual suggestion of where the kitchen ends and the dining room begins.
+
+05:35.420 --> 05:37.040
+You can easily just step right over it.
+
+05:37.040 --> 05:38.040
+You can ignore it completely.
+
+05:38.460 --> 05:43.300
+But in flictions language, a parenthesis is a heavy physical vault door.
+
+05:43.560 --> 05:43.880
+Yes.
+
+05:43.980 --> 05:45.640
+You actually have to open it and walk through it.
+
+05:45.680 --> 05:51.520
+And once you are inside that specific room, you are entirely bound by the physics of that room.
+
+05:51.580 --> 05:53.120
+You're trapped in there until you finish the job.
+
+05:53.220 --> 05:53.600
+Exactly.
+
+05:53.780 --> 05:55.280
+You have to do the work inside.
+
+05:55.280 --> 05:59.300
+And you can only walk back out the door carrying the final result.
+
+05:59.620 --> 06:02.180
+That physical visualization is incredibly helpful.
+
+06:02.340 --> 06:02.440
+Yeah.
+
+06:02.700 --> 06:11.560
+However, I do want to note that the paper is also very careful to prevent us from mistaking our metaphors for the literal truth of the machine.
+
+06:11.760 --> 06:12.300
+Oh, sure.
+
+06:12.600 --> 06:13.100
+Good point.
+
+06:13.260 --> 06:13.400
+Yeah.
+
+06:13.760 --> 06:17.020
+Flyxion explicitly separates the design into three distinct levels.
+
+06:17.020 --> 06:19.920
+First, you have the concrete syntax.
+
+06:20.320 --> 06:20.740
+Which is what?
+
+06:21.240 --> 06:22.880
+The literal ASCII text.
+
+06:23.200 --> 06:25.720
+You know, the actual characters you type on your mechanical keyboard.
+
+06:25.800 --> 06:26.500
+Okay, got it.
+
+06:26.680 --> 06:28.600
+Second, you have the abstract syntax.
+
+06:28.940 --> 06:31.140
+That is the structural tree we talked about a minute ago.
+
+06:31.200 --> 06:31.760
+The AST.
+
+06:32.080 --> 06:32.320
+Right.
+
+06:32.680 --> 06:34.800
+And third, you have the semantics.
+
+06:35.000 --> 06:37.340
+That is the actual operational machine transitions.
+
+06:37.900 --> 06:41.120
+The microscopic flipping of bits in the processor and memory.
+
+06:41.120 --> 06:47.260
+Meaning words like enter or follow and return, those are just our evocative human metaphors.
+
+06:47.520 --> 06:48.280
+Yes, exactly.
+
+06:48.400 --> 06:50.720
+They belong to our reading of the situation, right?
+
+06:50.720 --> 06:50.840
+Right.
+
+06:50.840 --> 06:51.980
+Not the code itself.
+
+06:52.100 --> 06:57.780
+Right, because Flyxion explicitly writes that no claim is made that computation is spatial.
+
+06:58.300 --> 07:01.020
+The computer isn't literally walking into a room.
+
+07:01.140 --> 07:01.500
+Exactly.
+
+07:01.600 --> 07:03.660
+It's not walking into a geometric sphere or anything.
+
+07:03.820 --> 07:10.200
+When we say entering a sphere, the mathematical counterpart to that is a formal property called traversal decomposition.
+
+07:10.200 --> 07:11.120
+Okay, wait.
+
+07:11.480 --> 07:14.540
+What does traversal decomposition actually mean for the physical machine?
+
+07:15.240 --> 07:22.700
+It simply means that the formal math proves the evaluator must fully resolve the inner term before it can resolve the outer context.
+
+07:22.960 --> 07:24.800
+So it breaks it down into strict stats.
+
+07:24.820 --> 07:26.300
+Yes, it decomposes the journey.
+
+07:26.380 --> 07:32.500
+And keeping these three levels separate, the text, the tree, and the machine semantics, is crucial here.
+
+07:32.760 --> 07:33.780
+Why is that so important?
+
+07:33.780 --> 07:41.240
+Because a lot of modern language design gets really muddy when creators let one level silently define another.
+
+07:41.640 --> 07:49.140
+Like, they'll draw a nice visual flowchart and mistake their illustrative drawing for a formal definition of how the memory should behave.
+
+07:49.280 --> 07:49.880
+Oh, I see.
+
+07:49.980 --> 07:51.960
+They confuse the map for the territory.
+
+07:52.100 --> 07:52.460
+Exactly.
+
+07:53.020 --> 07:55.620
+And Flyxion refuses to make that mistake.
+
+07:55.620 --> 08:02.600
+Okay, so if punctuation acts like a physical room with strict rules, what are those rules?
+
+08:02.720 --> 08:04.060
+Like, how many rooms are there?
+
+08:04.160 --> 08:08.160
+Well, this brings up Flyxion's core design principle, which is called motion economy.
+
+08:08.440 --> 08:09.380
+Let's unpack that.
+
+08:09.560 --> 08:10.400
+Motion economy.
+
+08:10.580 --> 08:12.560
+Yeah, let's break down the two halves of this principle.
+
+08:12.660 --> 08:13.800
+The first half is economy.
+
+08:14.600 --> 08:20.900
+In mathematically precise terms, no two primitive symbols can denote the same machine motion.
+
+08:21.020 --> 08:22.140
+Meaning no overlaps.
+
+08:22.140 --> 08:22.500
+Right.
+
+08:22.960 --> 08:24.440
+Think of a steering wheel in a car.
+
+08:25.120 --> 08:27.180
+Turning it left means the car goes left.
+
+08:27.320 --> 08:27.780
+Simple enough.
+
+08:28.040 --> 08:33.960
+You don't have three different buttons, a lever, and a weird dial on the dashboard that also make the car go left.
+
+08:34.140 --> 08:35.660
+That would be a nightmare to drive.
+
+08:35.760 --> 08:36.300
+It would be.
+
+08:36.760 --> 08:40.600
+There is a strict one-to-one mapping between the command and the motion.
+
+08:40.940 --> 08:41.860
+Okay, and the second half?
+
+08:42.020 --> 08:43.700
+The second half is completeness.
+
+08:43.820 --> 08:44.080
+Mm-hmm.
+
+08:44.260 --> 08:49.340
+Meaning for every core motion the machine is allowed to make, there must be a declared symbol for it.
+
+08:49.360 --> 08:50.600
+There are no hidden actions.
+
+08:50.600 --> 08:51.720
+Okay, hold on.
+
+08:52.000 --> 08:57.020
+Let me push back on this a little because I'm trying to put myself in the shoes of a working software engineer right now.
+
+08:57.180 --> 08:57.640
+Fair enough.
+
+08:57.720 --> 09:07.420
+You're saying this is revolutionary, but JavaScript, Python, C++, I mean, they already have keywords that do specific things, right?
+
+09:07.520 --> 09:08.080
+Sure they do.
+
+09:08.160 --> 09:11.260
+You have if statements, you have while loops, you have return keys.
+
+09:11.740 --> 09:18.100
+Why do we need an entirely new alphabet of ASI symbols just to do what basic code already does?
+
+09:18.100 --> 09:20.280
+It is a totally valid skepticism.
+
+09:20.720 --> 09:24.020
+But let's look at what actually happens in modern programming languages.
+
+09:24.700 --> 09:26.700
+They are incredibly bloated.
+
+09:26.960 --> 09:27.740
+Bloated how?
+
+09:28.060 --> 09:33.800
+Well, a language like C++ has nearly 100 reserved keywords, and JavaScript has dozens.
+
+09:34.300 --> 09:38.220
+And the problem is, many of these keywords overlap in functionality.
+
+09:38.480 --> 09:40.680
+Oh, like multiple buttons turning the car left.
+
+09:41.020 --> 09:41.420
+Exactly.
+
+09:41.420 --> 09:45.540
+Or worse, they perform multiple hidden state changes under the hood.
+
+09:46.200 --> 09:56.120
+For example, a single keyword in a modern language might allocate memory on the heap, check a Boolean condition, and mutate a variable all at the exact same time.
+
+09:56.440 --> 09:56.740
+Wow.
+
+09:57.140 --> 09:59.400
+Okay, so one word does a bunch of invisible stuff.
+
+09:59.500 --> 09:59.640
+Right.
+
+09:59.640 --> 10:03.800
+The programmer types one word, but the machine is doing five different things.
+
+10:04.380 --> 10:08.100
+Flyxion's constraint absolutely prevents this kind of semantic drift.
+
+10:08.200 --> 10:08.820
+It's about parity.
+
+10:09.320 --> 10:09.640
+Yes.
+
+10:10.300 --> 10:20.880
+By forcing a strict one-to-one relationship between a single ASCII symbol and a single pure machine motion, the language is kept tiny, but mathematically verifiable.
+
+10:20.880 --> 10:23.500
+And when you say tiny, I mean, you mean seven symbols.
+
+10:23.660 --> 10:24.100
+Just seven.
+
+10:24.220 --> 10:26.000
+That is the entire core alphabet.
+
+10:26.620 --> 10:27.820
+Let's walk through these symbols.
+
+10:27.940 --> 10:30.300
+I want to know exactly what buttons we have on this dashboard.
+
+10:30.400 --> 10:30.820
+Let's do it.
+
+10:30.960 --> 10:34.720
+So first, you have the standard parentheses, just an open and closed bracket.
+
+10:34.840 --> 10:35.000
+Right.
+
+10:35.080 --> 10:37.320
+And this represents pure nested evaluation.
+
+10:38.120 --> 10:42.000
+It's the basic enter and return we talked about with the circles of evaluation.
+
+10:42.260 --> 10:42.460
+Okay.
+
+10:42.840 --> 10:47.300
+It defines the region of work, but importantly, it doesn't change the state of the world outside of it.
+
+10:47.540 --> 10:47.960
+Got it.
+
+10:48.660 --> 10:50.840
+Then we get to the real meat of the paper.
+
+10:51.040 --> 10:52.320
+The bounded transition frame.
+
+10:52.500 --> 10:52.740
+Yes.
+
+10:52.940 --> 10:53.380
+The big one.
+
+10:53.560 --> 10:59.740
+This is written as a less than sign, a parenthesis, and then on the other side, a parenthesis and a greater than sign.
+
+10:59.820 --> 11:01.780
+So it looks like a sort of spiked parenthesis.
+
+11:01.900 --> 11:01.980
+Yeah.
+
+11:02.080 --> 11:03.900
+Think of that symbol as the heavy vault door.
+
+11:04.320 --> 11:08.180
+It delimits a frame with what the paper calls a staged store.
+
+11:08.480 --> 11:09.840
+A staged store.
+
+11:10.080 --> 11:11.580
+What does that mean in normal terms?
+
+11:12.080 --> 11:17.100
+It basically creates an isolated sandbox where you can play around without affecting reality.
+
+11:17.140 --> 11:17.320
+Okay.
+
+11:17.320 --> 11:17.920
+That makes sense.
+
+11:18.260 --> 11:19.420
+Next is the question mark.
+
+11:19.420 --> 11:21.260
+This is the admit motion.
+
+11:21.360 --> 11:22.500
+It's a perspective test.
+
+11:22.640 --> 11:23.900
+Then you have the tilde symbol.
+
+11:24.080 --> 11:25.400
+This is the transform motion.
+
+11:25.780 --> 11:31.100
+It represents a pure change made only inside that isolated sandbox, the staged store.
+
+11:31.100 --> 11:37.680
+And notice how the question mark and the tilde map strictly to entirely different machine motions here.
+
+11:37.820 --> 11:38.020
+Right.
+
+11:38.100 --> 11:40.500
+Because one asks a question and the other does an action.
+
+11:40.580 --> 11:40.960
+Exactly.
+
+11:41.400 --> 11:48.800
+One asks a question of the state without touching it, and the other forcefully changes a temporary state without asking any questions at all.
+
+11:48.800 --> 11:49.320
+Okay.
+
+11:49.640 --> 11:51.040
+Then we have the exclamation point.
+
+11:51.160 --> 11:51.320
+Sure.
+
+11:51.360 --> 11:52.680
+This is the verify motion.
+
+11:52.680 --> 11:55.940
+It's a relational check that happens after a change is made.
+
+11:56.280 --> 11:56.440
+Yeah.
+
+11:56.520 --> 11:58.960
+Following that is the at symbol, which is attribute.
+
+11:59.620 --> 12:03.860
+This constructs the provenance or the authorship of the action.
+
+12:04.140 --> 12:05.840
+Like, who is actually doing this?
+
+12:05.880 --> 12:07.360
+It stamps the identity on it.
+
+12:07.360 --> 12:11.660
+And finally, the greater than sign, the commit motion.
+
+12:12.060 --> 12:17.240
+This is the only symbol that actually makes a change permanent in the real world.
+
+12:17.240 --> 12:17.640
+Right.
+
+12:17.900 --> 12:24.860
+And, you know, the paper tests its own principle of motion economy against its own design choices in a really transparent way.
+
+12:25.000 --> 12:25.340
+Oh, so.
+
+12:25.340 --> 12:35.780
+Well, for instance, in an earlier draft, Flyxion asked, why do we need both a question mark to admit and an exclamation point to verify?
+
+12:36.080 --> 12:36.280
+Yeah.
+
+12:36.400 --> 12:37.460
+Actually, why do we?
+
+12:37.520 --> 12:39.680
+Aren't they both just testing if something is allowed?
+
+12:39.840 --> 12:41.040
+That's exactly the question.
+
+12:41.220 --> 12:45.200
+If I want to check if a user has enough money in their account, isn't a check just a check?
+
+12:45.280 --> 12:45.540
+Right.
+
+12:45.680 --> 12:48.400
+But the answer is they have fundamentally different mathematical signatures.
+
+12:48.580 --> 12:48.780
+Okay.
+
+12:48.900 --> 12:49.880
+Lay that out for us.
+
+12:49.880 --> 12:56.300
+The question mark admission predicate only looks at the committed store meaning, the past, and the proposal you're making.
+
+12:57.060 --> 12:59.820
+It evaluates before any transformation is actually run.
+
+12:59.920 --> 13:01.700
+So it's looking before you leap.
+
+13:01.980 --> 13:02.300
+Yes.
+
+13:02.720 --> 13:08.960
+It asks, based on the state of the world right now, are you even allowed to attempt this math?
+
+13:09.380 --> 13:14.040
+Oh, like checking if the account is frozen before you even try to calculate the withdrawal.
+
+13:14.200 --> 13:14.620
+Exactly.
+
+13:14.620 --> 13:22.580
+Now, the exclamation point verification predicate, on the other hand, reads the committed store, the staged store, and the proposed effects.
+
+13:22.760 --> 13:23.720
+So it looks at everything.
+
+13:23.880 --> 13:24.080
+Right.
+
+13:24.400 --> 13:33.020
+It asks, now that you've done the math in the sandbox, does the relationship between the before state and the after state satisfy our required invariance?
+
+13:33.420 --> 13:34.980
+Did the math actually check out?
+
+13:35.220 --> 13:35.660
+I see.
+
+13:35.660 --> 13:46.060
+So admission is perspective, verification is relational, there are entirely different epistemic positions, so the principle of motion economy mandates they absolutely must have completely different symbols.
+
+13:46.180 --> 13:46.520
+Wow.
+
+13:46.900 --> 13:55.340
+Okay, so we have this tiny seven-symbol alphabet, but like if I just throw a commit symbol next to a transform symbol, wouldn't that instantly break the isolation we just talked about?
+
+13:55.620 --> 13:56.320
+It would, yes.
+
+13:56.440 --> 13:59.480
+So how does the language prevent me from writing a dangerous sentence?
+
+14:00.120 --> 14:04.020
+That is where the grammar of the language becomes a literal, physical barrier.
+
+14:04.020 --> 14:06.780
+Flyxion doesn't just give you the alphabet.
+
+14:07.160 --> 14:10.420
+There is a rigid sequence you absolutely must follow.
+
+14:10.600 --> 14:11.640
+Okay, what's the sequence?
+
+14:12.200 --> 14:16.660
+The paper defines the static well-formedness of the language.
+
+14:17.700 --> 14:22.680
+A bounded transition is only valid if it matches exactly this regular expression sequence.
+
+14:23.360 --> 14:32.480
+Any number of admits, followed by any number of transforms, followed by at least one verify, followed by at least one attribute, followed by exactly one commit.
+
+14:32.480 --> 14:35.780
+Okay, let's strip away the computer science terminology for a second here.
+
+14:35.820 --> 14:36.000
+Sure.
+
+14:36.200 --> 14:39.700
+That means you can ask zero or more questions with the question mark.
+
+14:40.040 --> 14:43.380
+Then you can make zero or more isolated changes with the tilde.
+
+14:43.680 --> 14:43.960
+Right.
+
+14:44.160 --> 14:48.620
+Then you absolutely must have at least one exclamation point to verify the math.
+
+14:48.620 --> 14:51.540
+Then at least one at symbol to stamp who did it.
+
+14:51.840 --> 14:54.960
+And finally, exactly one greater than sign to make it real.
+
+14:55.180 --> 14:55.460
+Yes.
+
+14:55.660 --> 15:00.840
+Admit, transform, verify, attribute, commit in that exact order.
+
+15:00.980 --> 15:02.860
+And this ordering is a static judgment.
+
+15:03.060 --> 15:04.580
+Wait, what does static judgment mean?
+
+15:04.920 --> 15:08.500
+It means it's checked by the parser before the code ever runs.
+
+15:08.500 --> 15:13.460
+The machine won't even attempt to turn on the engine if the sequence is wrong.
+
+15:13.540 --> 15:14.860
+It just refuses to start.
+
+15:15.000 --> 15:15.400
+Exactly.
+
+15:15.820 --> 15:21.820
+It enforces a vital mathematical property called boundary locality, which is Proposition 5 in the paper.
+
+15:21.940 --> 15:22.200
+Okay.
+
+15:22.480 --> 15:24.320
+Walk us through boundary locality.
+
+15:24.660 --> 15:31.320
+So when you open that bounded transition with the vault door symbols, you are creating a localized environment.
+
+15:31.320 --> 15:39.000
+Inside this boundary, any changes you make with the tilde transform symbol are only applied to a staged store.
+
+15:39.180 --> 15:40.360
+Which is like a scratch pad.
+
+15:40.480 --> 15:40.680
+Yes.
+
+15:40.820 --> 15:43.940
+Think of a staged store as a scratch pad in the computer's memory.
+
+15:44.920 --> 15:52.220
+The committed store, the actual permanent database of the machine and the outside world that remains completely untouched and isolated.
+
+15:52.400 --> 15:53.920
+It doesn't even know you're doing math.
+
+15:53.980 --> 15:54.180
+Right.
+
+15:54.180 --> 16:03.680
+Only at the very end, if every single verification passes, does the commit motion take that scratch pad and atomically overwrite the permanent database.
+
+16:03.920 --> 16:08.380
+Let me use an analogy here to ground this because I think it's one of the most powerful concepts in the text.
+
+16:08.440 --> 16:11.540
+And I really want to make sure you, the listener, grasp this.
+
+16:11.640 --> 16:12.060
+Let's hear it.
+
+16:12.280 --> 16:14.960
+Think of a high-end Michelin star restaurant.
+
+16:15.540 --> 16:19.360
+The vault door boundary is the physical walls of the kitchen itself.
+
+16:19.500 --> 16:19.720
+Okay.
+
+16:19.780 --> 16:20.640
+I'll look where this is going.
+
+16:20.640 --> 16:24.360
+And the tilde transform motion is the chef in the back at the prep station.
+
+16:24.600 --> 16:30.540
+They are experimenting with a new dish, chopping ingredients, mixing sauces, maybe burning a pan or two.
+
+16:30.980 --> 16:31.760
+Doing the messy work.
+
+16:31.840 --> 16:32.040
+Right.
+
+16:32.160 --> 16:34.280
+This is all happening in the staged store.
+
+16:35.080 --> 16:42.900
+Out in the dining room, which is the committed store, the real world, the guests have absolutely no idea this is happening.
+
+16:43.440 --> 16:45.100
+Their reality hasn't changed at all.
+
+16:45.540 --> 16:49.640
+The dining room remains perfectly pristine, quiet, and orderly.
+
+16:49.640 --> 16:50.680
+Right.
+
+16:50.780 --> 16:54.420
+So the chef's messy counter does not impact the customer's clean table.
+
+16:54.540 --> 16:54.940
+Exactly.
+
+16:55.320 --> 16:59.720
+Now, the chef finishes plating the dish, but they can't just run it out to the dining room themselves.
+
+16:59.840 --> 17:02.380
+It has to go to the pass, where the head chef stands.
+
+17:02.500 --> 17:04.400
+And the head chef is the verification stage.
+
+17:04.600 --> 17:04.900
+Yes.
+
+17:05.380 --> 17:08.820
+The head chef performs the exclamation point verify motion.
+
+17:09.240 --> 17:10.740
+They taste a spoon of the sauce.
+
+17:10.860 --> 17:12.100
+They wipe the rim of the plate.
+
+17:12.280 --> 17:13.280
+They check the presentation.
+
+17:13.280 --> 17:17.720
+They are verifying the relationship between the raw ingredients and the final plate.
+
+17:18.180 --> 17:19.780
+They're checking the math, essentially.
+
+17:20.480 --> 17:25.540
+And if, and only if, the head chef God approves the dish, they ring the bell.
+
+17:25.780 --> 17:27.280
+That bell is the commit motion.
+
+17:27.860 --> 17:28.640
+Ah, perfect.
+
+17:28.640 --> 17:31.380
+The waiter carries the dish out through the swinging doors.
+
+17:32.020 --> 17:35.400
+And only then does the reality of the dining room change.
+
+17:35.740 --> 17:38.940
+That captures the essence of boundary locality perfectly.
+
+17:39.520 --> 17:41.180
+Because the interior can mutate.
+
+17:41.300 --> 17:41.840
+It can fail.
+
+17:41.960 --> 17:43.280
+It can change state wildly.
+
+17:43.680 --> 17:47.620
+But the exterior does not change until that commit surface is officially crossed.
+
+17:47.760 --> 17:48.000
+Right.
+
+17:48.000 --> 17:53.000
+And this is why the strict ordering of the symbols is not just some stylistic choice.
+
+17:53.560 --> 17:55.700
+It is absolutely mandatory for safety.
+
+17:55.860 --> 17:59.240
+If you mess with the order, the safety guarantees completely collapse.
+
+17:59.680 --> 18:04.680
+Flyxion provides these brilliant negative examples in the paper to prove exactly why this
+
+18:04.680 --> 18:05.780
+order matters, actually.
+
+18:05.920 --> 18:06.840
+Yeah, section 10, right.
+
+18:06.920 --> 18:07.360
+Exactly.
+
+18:07.860 --> 18:10.780
+I want to throw a couple of these at you to see how the system handles it.
+
+18:11.220 --> 18:15.340
+What if a programmer tries to be clever and writes their code out of order?
+
+18:15.340 --> 18:18.640
+Like, what if they put the commit symbol before the verify symbol?
+
+18:18.760 --> 18:23.360
+Well, mathematically, that breaks Proposition 8, which guarantees verify commits.
+
+18:23.760 --> 18:26.140
+But practically, what does that look like?
+
+18:26.540 --> 18:31.300
+In your kitchen analogy, that is the waiter running the dish out to the customer, the customer
+
+18:31.300 --> 18:35.800
+taking a bite, chewing it, and then the head chef coming out to taste it to see if it's
+
+18:35.800 --> 18:36.380
+cooked properly.
+
+18:36.580 --> 18:37.300
+Oh, wow.
+
+18:37.600 --> 18:38.520
+Yeah, that's terrible.
+
+18:38.700 --> 18:39.780
+It is far too late.
+
+18:40.000 --> 18:41.180
+The damage is already done.
+
+18:41.180 --> 18:45.600
+You are trying to check the invariant after the permanent state of the world has already
+
+18:45.600 --> 18:46.040
+been altered.
+
+18:46.380 --> 18:48.140
+You can't uneat the bad food.
+
+18:48.460 --> 18:48.880
+Exactly.
+
+18:49.580 --> 18:54.800
+So by enforcing static well-formedness, the parser rules this out immediately.
+
+18:55.260 --> 18:58.860
+It is physically impossible to execute that sequence in this language.
+
+18:59.200 --> 19:00.680
+Here is another negative example.
+
+19:01.240 --> 19:03.660
+What if we admit after we transform?
+
+19:04.220 --> 19:07.360
+So we write a tilde transform and then a question mark admit.
+
+19:07.640 --> 19:09.760
+So changing the state before checking the rules.
+
+19:09.760 --> 19:10.020
+Right.
+
+19:10.160 --> 19:14.880
+So we chop all the vegetables, cook the steak, and then check if the customer actually ordered
+
+19:14.880 --> 19:15.380
+steak.
+
+19:15.760 --> 19:19.820
+If a language permitted arbitrary effects, this would be completely disastrous.
+
+19:20.520 --> 19:25.160
+A program could make a change, potentially an irreversible effect, like sending an email,
+
+19:25.580 --> 19:30.100
+triggering an alarm, or transferring funds out of a bank account before checking if the
+
+19:30.100 --> 19:31.880
+user actually had the permission to do so.
+
+19:31.900 --> 19:33.780
+Which is how so many bugs happen today.
+
+19:33.900 --> 19:34.180
+Right.
+
+19:34.180 --> 19:40.280
+But by forcing all admission tests to occur strictly before any transformations, the language
+
+19:40.280 --> 19:45.500
+guarantees that no work is done, and no state is mutated even on the scratch pad, unless
+
+19:45.500 --> 19:47.520
+the perspective conditions are met first.
+
+19:47.940 --> 19:48.940
+It's so elegant.
+
+19:49.540 --> 19:54.140
+This strict sequence ensures the outside world is entirely protected from the staging area.
+
+19:54.220 --> 19:54.880
+It really is.
+
+19:54.880 --> 19:57.280
+But this raises a massive question.
+
+19:58.000 --> 20:02.760
+What happens if the head chef tastes the dish during the verify stage and just spits it
+
+20:02.760 --> 20:03.000
+out?
+
+20:03.200 --> 20:03.960
+A total rejection.
+
+20:04.180 --> 20:04.360
+Right.
+
+20:04.540 --> 20:06.640
+What happens if the transition hits a refusal?
+
+20:07.200 --> 20:09.100
+Does the dish just vanish into the ether?
+
+20:09.320 --> 20:10.880
+Does the system pretend it never happened?
+
+20:11.100 --> 20:16.180
+This is where Flyxion's design moves from just being, you know, a safe programming language
+
+20:16.180 --> 20:19.600
+to being a profound statement on how we record history.
+
+20:19.740 --> 20:19.960
+Okay.
+
+20:19.960 --> 20:20.920
+Let's get into it.
+
+20:21.240 --> 20:25.300
+The paper defines three possible outcomes for any bounded transition.
+
+20:26.120 --> 20:28.860
+First, it can commit, which we've already discussed.
+
+20:29.300 --> 20:30.060
+The bell rings.
+
+20:30.240 --> 20:31.080
+The dish goes out.
+
+20:31.160 --> 20:32.040
+Everything goes perfectly.
+
+20:32.240 --> 20:32.380
+Right.
+
+20:32.780 --> 20:38.240
+Second, it can refuse, meaning a predicate like an admit or verify test returned false.
+
+20:38.800 --> 20:40.240
+The head chef rejected it.
+
+20:40.300 --> 20:40.520
+Okay.
+
+20:40.600 --> 20:42.460
+Or third, it can fault.
+
+20:42.640 --> 20:45.560
+Wait, what is the difference between a refusal and a fault?
+
+20:45.780 --> 20:47.260
+Aren't they both just errors?
+
+20:47.760 --> 20:48.400
+Not at all.
+
+20:48.400 --> 20:53.760
+A fault means the evaluation couldn't be completed at all due to a breakdown in the physical
+
+20:53.760 --> 20:55.740
+or logical reality of the machine.
+
+20:56.000 --> 20:56.540
+Give me an example.
+
+20:56.820 --> 21:01.560
+Maybe a variable was completely undefined or the hard drive crashed or the system literally
+
+21:01.560 --> 21:02.320
+ran out of memory.
+
+21:02.600 --> 21:04.060
+Oh, so the kitchen caught on fire.
+
+21:04.180 --> 21:04.460
+Exactly.
+
+21:04.760 --> 21:06.120
+The chef didn't reject the dish.
+
+21:06.260 --> 21:07.720
+The kitchen just ceased to function.
+
+21:08.040 --> 21:08.240
+Okay.
+
+21:08.300 --> 21:10.380
+So how does the language handle these outcomes?
+
+21:10.740 --> 21:14.280
+That is governed by what the paper calls ledger legality.
+
+21:14.440 --> 21:15.220
+Ledger legality.
+
+21:15.260 --> 21:15.560
+Yes.
+
+21:15.820 --> 21:17.020
+Proposition six and seven.
+
+21:17.020 --> 21:21.540
+Behind the scenes, the evaluator maintains a ledger of everything that happens.
+
+21:22.160 --> 21:25.360
+And this ledger is appenned only in the strongest mathematical sense.
+
+21:25.660 --> 21:27.860
+It uses a property called prefix extension.
+
+21:28.180 --> 21:29.180
+Prefix extension.
+
+21:29.180 --> 21:32.620
+That sounds like a concept from cryptography or, you know, blockchains.
+
+21:32.740 --> 21:34.160
+It is heavily used there, yeah.
+
+21:34.340 --> 21:38.240
+But without all the crypto hype, it's really just a simple logical rule.
+
+21:38.380 --> 21:38.540
+Yeah.
+
+21:38.540 --> 21:39.780
+History cannot be rewritten.
+
+21:39.900 --> 21:40.120
+Okay.
+
+21:40.280 --> 21:45.040
+Whatever was in the ledger 10 steps ago is still the exact prefix of the ledger now.
+
+21:45.120 --> 21:45.300
+Yeah.
+
+21:45.300 --> 21:46.920
+You can only add to the end of the book.
+
+21:47.140 --> 21:50.940
+You can never tear out a page or erase a line or go back in time.
+
+21:50.940 --> 21:56.320
+There is a mathematical formula in the text that absolutely blew my mind regarding this ledger.
+
+21:56.580 --> 22:02.480
+It says, delta sigma equals zero, but delta lambda does not equal zero.
+
+22:02.700 --> 22:03.040
+Yes.
+
+22:03.240 --> 22:04.160
+That's a crucial one.
+
+22:04.280 --> 22:07.140
+Let me translate that out of the Greek for a second, just so we're all on the same page.
+
+22:07.560 --> 22:09.400
+Delta means change, right?
+
+22:09.600 --> 22:12.640
+Sigma is the state of the world, the committed store, the dining room.
+
+22:12.640 --> 22:16.260
+And lambda is the ledger, the logbook of history.
+
+22:16.440 --> 22:16.680
+Correct.
+
+22:16.840 --> 22:21.760
+So the change in the state of the world is zero, but the change in the ledger is not zero.
+
+22:22.120 --> 22:28.840
+If we connect this to the bigger picture, it is a profound realization about how systems should work.
+
+22:29.500 --> 22:32.260
+No state change does not mean no event occurred.
+
+22:32.500 --> 22:37.660
+Let's break that down because it goes completely against how almost all modern databases work today.
+
+22:37.760 --> 22:38.100
+It does.
+
+22:38.380 --> 22:41.260
+Imagine a transition hits an emit test and the test fails.
+
+22:41.260 --> 22:46.200
+Let's say a user tries to withdraw money from an ATM, but they top the wrong password.
+
+22:46.300 --> 22:46.440
+Okay.
+
+22:47.060 --> 22:47.960
+Happens all the time.
+
+22:48.340 --> 22:49.840
+The transition returns a refuse.
+
+22:50.740 --> 22:55.240
+Now, because of boundary locality, the world state, sigma, has not changed.
+
+22:55.780 --> 22:57.100
+Delta sigma is zero.
+
+22:57.340 --> 22:58.460
+No money was transferred.
+
+22:58.760 --> 22:59.020
+Right.
+
+22:59.360 --> 23:01.320
+The bank account remains exactly the same.
+
+23:01.680 --> 23:06.240
+But the ledger, lambda, records that the refusal happened.
+
+23:06.340 --> 23:06.880
+Oh, I see.
+
+23:07.160 --> 23:08.540
+Delta lambda is not zero.
+
+23:08.540 --> 23:11.640
+The logbook physically grows to document the rejection.
+
+23:12.400 --> 23:14.760
+A negative event is still a historical event.
+
+23:14.960 --> 23:17.860
+That is so counterintuitive to how we usually think about computing.
+
+23:18.320 --> 23:22.100
+Usually if a transaction fails in a regular SQL database, it just rolls back.
+
+23:22.200 --> 23:22.780
+It disappears.
+
+23:23.040 --> 23:23.580
+Yeah, it's a ghost.
+
+23:23.700 --> 23:25.080
+It's like it never happened at all.
+
+23:25.360 --> 23:34.040
+But Flyxion argues that a refused proposal leaves the world unchanged, yet leaves concrete evidence that the evaluation was attempted.
+
+23:34.040 --> 23:36.500
+Think about why this matters.
+
+23:37.100 --> 23:42.780
+If someone tries to guess your password 10,000 times and fails, the state of your bank account hasn't changed.
+
+23:42.980 --> 23:43.360
+Right.
+
+23:43.760 --> 23:49.460
+But wouldn't you want the historical record to show that someone attempted to breach your account 10,000 times?
+
+23:49.700 --> 23:50.220
+Absolutely.
+
+23:50.380 --> 23:51.780
+I'd want to know that immediately.
+
+23:51.780 --> 23:57.360
+And importantly, the ledger explicitly differentiates between a refusal and a fault.
+
+23:58.320 --> 24:03.320
+A refusal is a deliberate, logical decision made by the system based on its rules.
+
+24:03.780 --> 24:04.980
+The password was wrong.
+
+24:05.220 --> 24:06.340
+The system did its job.
+
+24:06.420 --> 24:06.680
+Yes.
+
+24:07.200 --> 24:08.300
+A fault is a crash.
+
+24:08.780 --> 24:10.360
+The database server lost power.
+
+24:10.360 --> 24:13.840
+These are conceptually different historical events.
+
+24:14.420 --> 24:20.120
+One is a system acting correctly to reject invalid input, and the other is a system failing to act at all.
+
+24:20.360 --> 24:22.540
+And they are recorded differently in the Lambda ledger.
+
+24:22.640 --> 24:22.960
+Exactly.
+
+24:23.440 --> 24:25.600
+They have completely different footprints in the history book.
+
+24:25.640 --> 24:30.060
+Which means an auditor can't confuse a deliberate rejection with a simple timeout error.
+
+24:30.420 --> 24:31.780
+The history is perfectly preserved.
+
+24:31.780 --> 24:43.340
+And, you know, this realization that a refusal is a real, tangible, historical event, even if it doesn't change the state of the world, it leads directly into the philosophical core of the paper.
+
+24:43.740 --> 24:45.220
+The epistemology of computation.
+
+24:45.380 --> 24:45.620
+Yes.
+
+24:45.740 --> 24:47.040
+The epistemology of computation.
+
+24:47.220 --> 24:50.660
+Now, epistemology is just a fancy word for the study of how we know what we know.
+
+24:50.840 --> 24:51.280
+Pretty much.
+
+24:51.380 --> 24:51.540
+Yeah.
+
+24:51.740 --> 25:01.080
+And section 17 of the paper is essentially a list of concepts that ordinary human description and standard programming languages casually mash together.
+
+25:01.080 --> 25:02.280
+Why do they match them together?
+
+25:02.480 --> 25:03.320
+Because it's easier.
+
+25:03.880 --> 25:06.980
+They conflate distinct ideas to save time or memory.
+
+25:07.680 --> 25:11.860
+But Flyxion explicitly refuses to merge these concepts.
+
+25:12.540 --> 25:15.840
+The language mathematically forces us to keep them separate.
+
+25:16.020 --> 25:18.600
+I really want to focus on these pairings because they are fascinating.
+
+25:18.760 --> 25:22.180
+The paper outlines several of these non-collapse principles.
+
+25:22.480 --> 25:23.100
+Let's go through them.
+
+25:23.160 --> 25:24.020
+Let's start with the first one.
+
+25:24.100 --> 25:25.600
+Evaluation versus exposure.
+
+25:25.920 --> 25:30.000
+Basically, just because a computer calculates something doesn't mean the world sees it.
+
+25:30.000 --> 25:33.140
+We touched on this with the staging area, but it's really worth expanding.
+
+25:33.860 --> 25:44.160
+In a normal language, like, say, JavaScript on a web page, if a function calculates a value and assigns it to a global variable, it is immediately exposed.
+
+25:44.320 --> 25:45.300
+Everyone can see it.
+
+25:45.520 --> 25:45.660
+Right.
+
+25:46.360 --> 25:48.580
+Evaluation and exposure happen simultaneously.
+
+25:49.360 --> 25:51.060
+Flyxion forces a wedge between them.
+
+25:51.060 --> 26:04.880
+Inside the boundary, you can evaluate thousands of complex transformations, you know, run algorithms, crunch numbers, but absolutely none of it is exposed to the committed world until that explicit commit symbol is executed.
+
+26:05.180 --> 26:07.540
+Computing something is not the same as publishing it.
+
+26:07.720 --> 26:08.160
+Exactly.
+
+26:08.340 --> 26:10.500
+Modern web developers mess this up constantly.
+
+26:10.640 --> 26:16.680
+You see websites where half a page loads, an error happens, and you are left looking at a broken, half-computed state.
+
+26:16.740 --> 26:17.480
+We've all seen it.
+
+26:17.480 --> 26:21.140
+It's terrible, and it happens because they collapse evaluation and exposure.
+
+26:21.300 --> 26:21.500
+Right.
+
+26:21.780 --> 26:22.960
+Okay, here's the next pair.
+
+26:23.620 --> 26:25.260
+Proposal versus realization.
+
+26:25.700 --> 26:27.700
+This builds on our discussion of refusals.
+
+26:28.000 --> 26:32.620
+A proposal can be fully evaluated without ever being realized in the committed store.
+
+26:32.900 --> 26:34.220
+But we conflate them anyway.
+
+26:34.220 --> 26:38.120
+In everyday life, we make this category error all the time.
+
+26:39.180 --> 26:44.220
+We treat the representation of a possibility as the execution of that possibility.
+
+26:44.300 --> 26:45.340
+Give me an example of that.
+
+26:45.340 --> 26:49.120
+If I hand you a blueprint for a house, that is a proposal.
+
+26:49.760 --> 26:50.820
+It can be evaluated.
+
+26:51.340 --> 26:54.980
+You can check if the load-bearing walls hold up, if the plumbing makes sense, whatever.
+
+26:55.180 --> 26:56.820
+But it is not a realized house.
+
+26:57.060 --> 26:58.160
+You can't live in a blueprint.
+
+26:59.380 --> 27:05.580
+Flyxion's language tracks proposals as distinct entities from realized state changes.
+
+27:06.000 --> 27:07.720
+A stage store is just a blueprint.
+
+27:07.720 --> 27:09.940
+It's so logical when you lay it out like that.
+
+27:10.120 --> 27:13.520
+Let's hit the third pair, which we've circled around but really need to nail down.
+
+27:13.780 --> 27:15.740
+Admission versus verification.
+
+27:16.060 --> 27:16.760
+Ah, yes.
+
+27:16.840 --> 27:18.280
+I want to use a nightclub analogy here.
+
+27:18.380 --> 27:20.260
+Admission, the question mark symbol, is perspective.
+
+27:20.780 --> 27:24.120
+It is the bouncer standing at the velvet rope outside the club.
+
+27:24.240 --> 27:25.560
+Okay, I can picture that.
+
+27:25.640 --> 27:28.760
+The bouncer checks your ID based on what is known before you enter.
+
+27:28.880 --> 27:29.500
+Are you 21?
+
+27:29.820 --> 27:30.880
+Are you wearing dress shoes?
+
+27:31.060 --> 27:32.140
+Are you on the guest list?
+
+27:32.560 --> 27:34.140
+It is a test of the pre-state.
+
+27:34.140 --> 27:38.280
+It is a forward-looking gatekeeper, has no idea what you will do inside the club.
+
+27:38.760 --> 27:41.760
+It only knows if you meet the criteria to open the door.
+
+27:42.060 --> 27:45.240
+But verification, the exclamation point symbol is relational.
+
+27:45.440 --> 27:46.120
+It's not the bouncer.
+
+27:46.320 --> 27:49.080
+It's the auditor checking the books after the night is over.
+
+27:49.360 --> 27:49.640
+Yes.
+
+27:50.100 --> 27:54.660
+The auditor looks at the cash register before the night started and after the night ended
+
+27:54.660 --> 27:56.680
+to ensure the invariance hold.
+
+27:57.420 --> 28:02.040
+Did every single drink poured result in exactly $14 entering the till?
+
+28:02.040 --> 28:04.180
+And this raises a really important question.
+
+28:05.140 --> 28:09.360
+Why do so many systems conflate the bouncer and the auditor?
+
+28:09.820 --> 28:10.360
+Why do they?
+
+28:10.740 --> 28:14.420
+Because it is computationally cheaper and conceptually lazier.
+
+28:14.740 --> 28:18.100
+It's easier to just do one check and assume everything is fine.
+
+28:18.420 --> 28:22.240
+But they occupy fundamentally different epistemic positions.
+
+28:22.460 --> 28:22.700
+Right.
+
+28:22.800 --> 28:24.240
+The bouncer only knows the past.
+
+28:24.580 --> 28:27.840
+The auditor knows the relationship between the past and the proposed future.
+
+28:27.840 --> 28:33.640
+Flyxion mathematically forces you to use different symbols for these actions, because confusing
+
+28:33.640 --> 28:35.000
+them leads to illegal histories.
+
+28:35.080 --> 28:36.580
+Which is exactly what we want to avoid.
+
+28:36.840 --> 28:37.080
+Right.
+
+28:37.560 --> 28:42.140
+In a world of information overload, we constantly collapse these concepts in our daily lives.
+
+28:42.640 --> 28:45.680
+We'd assume because a law was proposed, it happened.
+
+28:46.120 --> 28:48.880
+Or because a policy was evaluated, it was exposed.
+
+28:49.780 --> 28:54.880
+This language is essentially a masterclass in using syntax to enforce epistemic hygiene.
+
+28:55.220 --> 28:56.180
+Epistemic hygiene.
+
+28:56.780 --> 28:57.700
+That is brilliant.
+
+28:58.700 --> 29:02.400
+And speaking of things we falsely collapse, let's talk about the difference between an
+
+29:02.400 --> 29:04.140
+event and the record of an event.
+
+29:04.580 --> 29:07.360
+What is actually going into this ledger we keep talking about?
+
+29:07.640 --> 29:12.040
+We're entering the territory of Proposition 8, Verified Commit, and Proposition 9, Witness
+
+29:12.040 --> 29:12.840
+Correspondence.
+
+29:12.960 --> 29:13.700
+Heavy hitters.
+
+29:13.960 --> 29:15.340
+Yeah, the paper makes a hard distinction.
+
+29:16.040 --> 29:17.120
+An event is not a witness.
+
+29:17.560 --> 29:19.960
+The physical transition of the state is the event.
+
+29:20.420 --> 29:22.420
+The ledger entry that records it is the witness.
+
+29:22.420 --> 29:25.580
+And the rule here is conservation of committed history.
+
+29:25.880 --> 29:26.120
+Yes.
+
+29:26.540 --> 29:31.200
+It states that the number of commit steps mathematically must equal the number of valid witness records
+
+29:31.200 --> 29:31.800
+in the ledger.
+
+29:32.100 --> 29:33.800
+You cannot have one without the other.
+
+29:33.920 --> 29:37.660
+The paper has this great visual breakdown about orphans that I really want to mention.
+
+29:38.060 --> 29:42.020
+Because in a lot of corporate databases, you can have what Flyxion calls a left orphan.
+
+29:42.420 --> 29:43.140
+A left orphan.
+
+29:43.480 --> 29:43.720
+Right.
+
+29:43.960 --> 29:47.520
+That is a state change that happened, but there is no witness record of it.
+
+29:47.520 --> 29:50.780
+It's a silent mutation, a back door.
+
+29:51.360 --> 29:53.000
+It's terrifying from a security standpoint.
+
+29:53.520 --> 29:53.600
+Yeah.
+
+29:53.660 --> 29:58.340
+Imagine someone going into the SQL database, changing their account balance from zero to
+
+29:58.340 --> 30:02.060
+a million dollars, and totally bypassing the logging system.
+
+30:02.260 --> 30:03.100
+That's a left orphan.
+
+30:03.760 --> 30:06.020
+And on the flip side, you can have a right orphan.
+
+30:06.600 --> 30:10.680
+That is a witness record asserting that a change happened, but the actual state change
+
+30:10.680 --> 30:11.860
+never occurred in reality.
+
+30:11.940 --> 30:13.600
+It's a hallucinated log entry.
+
+30:13.600 --> 30:14.040
+Exactly.
+
+30:14.540 --> 30:18.700
+Like, a log says an email was sent, but the server was actually offline and the email
+
+30:18.700 --> 30:19.240
+never went out.
+
+30:19.360 --> 30:24.540
+But because of how Flyxion's core calculus is structured, with the commit motion being
+
+30:24.540 --> 30:29.620
+a single atomic step that both updates the store and appends the witness simultaneously,
+
+30:30.100 --> 30:33.500
+both left orphans and right orphans are mathematically impossible.
+
+30:33.880 --> 30:37.460
+Every single commit appends exactly one witness.
+
+30:38.120 --> 30:40.940
+Every single witness corresponds to exactly one commit.
+
+30:41.260 --> 30:42.820
+It's a perfect one-to-one ratio.
+
+30:42.820 --> 30:43.980
+It's airtight.
+
+30:44.380 --> 30:45.540
+It guarantees perfect ordering.
+
+30:46.440 --> 30:52.500
+But, and this is a massive caveat that Flyxion highlights in the text, persistence does not
+
+30:52.500 --> 30:53.320
+equal truth.
+
+30:54.060 --> 30:57.160
+This is perhaps the most critical thinking point in the entire text.
+
+30:57.500 --> 30:58.180
+It really is.
+
+30:58.280 --> 30:58.840
+Why is that?
+
+30:59.140 --> 31:05.220
+Because it is so easy to look at an immutable blockchain or a perfectly conserved append-only
+
+31:05.220 --> 31:09.400
+ledger and just assume that because the record is permanent and mathematically flawless,
+
+31:09.720 --> 31:12.400
+the content of the record must be objectively true.
+
+31:12.400 --> 31:14.260
+Right, because it's set in stone.
+
+31:14.380 --> 31:17.260
+But Flyxion explicitly warns against this.
+
+31:18.040 --> 31:19.680
+Persist does not imply true.
+
+31:20.020 --> 31:21.040
+So what does it imply?
+
+31:21.200 --> 31:22.760
+If it's not true, what is it?
+
+31:23.000 --> 31:25.600
+A valid witness only certifies structural facts.
+
+31:25.820 --> 31:26.600
+Structural facts.
+
+31:26.760 --> 31:27.000
+Yes.
+
+31:27.280 --> 31:32.020
+It proves that this specific transition ran, starting from this specific pre-state hash,
+
+31:32.340 --> 31:36.560
+ending at this specific post-state hash, and that all the declared predicates returned
+
+31:36.560 --> 31:38.140
+a true Boolean value.
+
+31:38.140 --> 31:40.840
+So it proves the procedural structure was followed perfectly.
+
+31:41.040 --> 31:41.300
+Exactly.
+
+31:41.560 --> 31:46.620
+But if the predicate itself was written poorly like, if it returns true when it shouldn't,
+
+31:46.700 --> 31:51.740
+or if the data fed into it was a lie, the witness will dutously persist that flawed outcome.
+
+31:52.000 --> 31:53.240
+It doesn't judge the data.
+
+31:53.360 --> 31:53.580
+Right.
+
+31:53.920 --> 31:55.920
+It proves the system followed its own rules.
+
+31:56.060 --> 31:56.160
+Yeah.
+
+31:56.160 --> 31:59.760
+It does not prove the rules accurately reflect objective reality.
+
+31:59.860 --> 32:03.940
+It's like the difference between a legally binding contract and a fair contract.
+
+32:04.180 --> 32:05.260
+Oh, that's a good way to put it.
+
+32:05.340 --> 32:11.340
+Like, if I get a contract notarized, the notary stamp just proves that I am the person who signed it on that specific date.
+
+32:11.600 --> 32:13.400
+It proves the structure of the agreement.
+
+32:13.720 --> 32:17.580
+It doesn't prove that the contract isn't a terrible deal that completely ruins my life.
+
+32:17.640 --> 32:17.980
+Exactly.
+
+32:18.160 --> 32:23.400
+The notary is a witness to the event, not a guarantor of universal truth.
+
+32:23.400 --> 32:28.200
+So a witness preserves the structure of an event, but it isn't the event itself.
+
+32:28.980 --> 32:34.120
+Flyxion provides a really compelling real-world analogy in the paper to help us grasp this concept.
+
+32:34.280 --> 32:38.140
+It addresses the non-collapse principle that representation is not referent.
+
+32:38.280 --> 32:38.480
+Right.
+
+32:38.740 --> 32:41.320
+Imagine you are sending a YouTube link to a friend.
+
+32:41.720 --> 32:45.900
+You paste a 52-character string of assy, text, text-like,
+
+32:46.280 --> 32:53.000
+https.www.youtube.com forward slash vvv, followed by some random letters.
+
+32:53.000 --> 32:54.080
+We all know the format.
+
+32:54.500 --> 32:59.160
+When you send those 52 bytes of text, you are not sending them the actual video.
+
+32:59.780 --> 33:06.440
+The video is gigabytes of high-definition visual data stored on a massive server rack in a data center somewhere in Oregon.
+
+33:06.900 --> 33:12.440
+And even if you append a timestamp to the URL, like T86, to jump to a specific second,
+
+33:12.980 --> 33:17.940
+that string of text still does not contain the physical event happening at that second.
+
+33:18.280 --> 33:20.620
+So what exactly is the URL then?
+
+33:20.620 --> 33:24.560
+The paper dissects this by separating three preservation targets.
+
+33:24.680 --> 33:25.500
+Okay, let's hear them.
+
+33:25.620 --> 33:27.200
+First, object preservation.
+
+33:28.220 --> 33:32.340
+That is saving the actual video file itself, storing the gigabytes of data.
+
+33:32.440 --> 33:33.000
+The heavy lifting.
+
+33:33.240 --> 33:33.440
+Right.
+
+33:33.820 --> 33:37.780
+Second, representation preservation, saving the exact characters of the URL.
+
+33:38.440 --> 33:40.700
+And third, reachability preservation.
+
+33:41.540 --> 33:44.800
+The URL is still resolved to the video when you click it five years from now.
+
+33:44.800 --> 33:47.040
+Oh man, we all know the pain of link decay.
+
+33:47.420 --> 33:50.780
+You click a bookmark from 10 years ago and you just get a 404 error.
+
+33:51.020 --> 33:51.940
+The server rotted.
+
+33:52.140 --> 33:52.480
+Exactly.
+
+33:52.640 --> 33:53.980
+A doorway can fail to resolve.
+
+33:54.100 --> 33:57.920
+You can have a perfectly preserved URL, meaning flawless representation preservation.
+
+33:58.480 --> 34:00.740
+But if the server goes down, you've lost reachability.
+
+34:00.900 --> 34:02.660
+So the representation is just a doorway.
+
+34:02.660 --> 34:09.940
+Yes, a representation is a preserved possibility of traversal, not a guarantee of arrival.
+
+34:10.040 --> 34:12.480
+What does this all mean for this ASCII language though?
+
+34:12.560 --> 34:18.140
+Like why is this YouTube URL analogy in a paper about bounded state transitions?
+
+34:18.540 --> 34:22.920
+Because the witness artifact, the ledger record created when a transition commits,
+
+34:23.220 --> 34:25.740
+is exactly like that URL doorway.
+
+34:25.900 --> 34:26.660
+Okay, I'm tracking.
+
+34:26.780 --> 34:28.840
+It doesn't contain the actual transition itself.
+
+34:28.840 --> 34:33.920
+The physical transition was a fleeting microscopic moment of computational time
+
+34:33.920 --> 34:36.360
+that vanished the millisecond it finished.
+
+34:36.540 --> 34:37.400
+Right, it's already gone.
+
+34:37.980 --> 34:40.420
+But the witness preserves enough structural information,
+
+34:40.560 --> 34:42.600
+the hashes of the before and after states,
+
+34:42.920 --> 34:44.180
+the predicates that were checked,
+
+34:44.480 --> 34:46.480
+the cryptographic signature of the author.
+
+34:47.100 --> 34:49.980
+It saves all of that so another evaluator can check it later.
+
+34:50.100 --> 34:50.620
+Oh, I see.
+
+34:50.760 --> 34:52.140
+It is a traversable specification.
+
+34:52.780 --> 34:55.780
+It allows you to reconstruct the exact path of history
+
+34:55.780 --> 35:00.860
+without having to physically store the entire state of the universe at every single step.
+
+35:00.860 --> 35:02.460
+That is incredibly efficient.
+
+35:03.220 --> 35:05.740
+And the ultimate form of preserving this representation
+
+35:05.740 --> 35:11.300
+brings us back to the very specific choice of characters Flyxion use to build this system.
+
+35:11.880 --> 35:15.300
+We need to talk about why this is an ASCII language.
+
+35:15.880 --> 35:20.100
+Not graphical nodes, not visual blocks, but raw text.
+
+35:20.100 --> 35:23.260
+We really need to look at Proposition 1 from the paper for this.
+
+35:24.080 --> 35:27.620
+It establishes unique parsing and a canonical round trip.
+
+35:28.060 --> 35:28.700
+Let me guess.
+
+35:28.880 --> 35:29.720
+More math.
+
+35:29.940 --> 35:30.420
+Just a little.
+
+35:31.060 --> 35:35.140
+The mathematical formula is print, parenthesis, parts, parenthesis, s,
+
+35:35.340 --> 35:37.740
+close parenthesis, close parenthesis, equals s.
+
+35:37.840 --> 35:39.940
+Okay, print of parse of s equals s.
+
+35:40.000 --> 35:42.900
+What does that actually mean in practice for someone typing out code?
+
+35:43.300 --> 35:46.120
+It means that if you take a string of source code, let's call it s,
+
+35:46.260 --> 35:49.440
+and you parse it into that abstract syntax tree we talked about earlier.
+
+35:49.440 --> 35:50.260
+Right, the blueprint.
+
+35:50.840 --> 35:51.260
+Exactly.
+
+35:51.640 --> 35:55.620
+And then you immediately tell the compiler to print that tree back out into characters,
+
+35:55.880 --> 35:58.400
+you get the exact original string s back.
+
+35:58.840 --> 35:59.700
+Every single space.
+
+36:00.040 --> 36:00.920
+Every single bracket.
+
+36:01.080 --> 36:02.060
+It's perfectly symmetrical.
+
+36:02.480 --> 36:04.040
+It is a perfect mathematical identity.
+
+36:04.160 --> 36:05.160
+But why does this matter?
+
+36:05.340 --> 36:08.400
+Like, why should a programmer care if it prints back exactly the same?
+
+36:08.600 --> 36:11.040
+Because a spatially suggestive notation,
+
+36:11.480 --> 36:14.400
+like the circles of evaluation or nested boxes
+
+36:14.400 --> 36:18.060
+or the visual node-based programming you see in modern game engines,
+
+36:18.060 --> 36:23.000
+it usually requires a massive, complex graphical user interface to render.
+
+36:23.120 --> 36:23.300
+Right.
+
+36:23.380 --> 36:25.900
+You need specific software to even open the file.
+
+36:26.020 --> 36:26.580
+Exactly.
+
+36:26.740 --> 36:26.900
+Yeah.
+
+36:26.960 --> 36:31.520
+But Flyxion restricted this language entirely to printable ASCII characters.
+
+36:31.760 --> 36:34.200
+Because the physical layout of the text,
+
+36:34.460 --> 36:36.940
+the indentation, the nesting of the normal parenthesis,
+
+36:37.060 --> 36:37.980
+and the vault door parenthesis,
+
+36:38.440 --> 36:41.080
+is mathematically identical to the execution structure.
+
+36:41.540 --> 36:43.200
+This code doesn't need a rendering layer.
+
+36:43.200 --> 36:43.760
+Wow.
+
+36:44.080 --> 36:46.020
+So it survives minimal terminals.
+
+36:46.300 --> 36:48.520
+It survives plain text editors like Notepad.
+
+36:48.660 --> 36:51.280
+It survives archival version control diffs.
+
+36:51.360 --> 36:52.780
+It survives practically everything.
+
+36:52.820 --> 36:55.120
+Like, if the entire modern operating system collapses,
+
+36:55.240 --> 36:58.060
+you can still read and verify the structure of this code
+
+36:58.060 --> 37:00.160
+on a 1980s monochrome monitor.
+
+37:00.260 --> 37:00.600
+Exactly.
+
+37:00.820 --> 37:03.140
+The visual structure is the computational structure.
+
+37:03.660 --> 37:06.080
+You don't need special software to see the boundaries.
+
+37:06.220 --> 37:07.820
+The plain ASCII characters are the boundaries.
+
+37:08.020 --> 37:09.040
+That is so cool.
+
+37:09.040 --> 37:10.880
+But if you synthesize this whole system,
+
+37:11.480 --> 37:14.720
+what Flyxion has built is a system of monotone narrowing.
+
+37:14.860 --> 37:15.860
+Monotone narrowing.
+
+37:15.920 --> 37:17.380
+Let's define that for everyone listening.
+
+37:17.940 --> 37:21.180
+Each layer you pass through acts as a restrictive filter.
+
+37:21.820 --> 37:23.040
+You start at the outer parenthesis.
+
+37:23.360 --> 37:24.640
+You enter the bounded frame.
+
+37:25.020 --> 37:26.380
+You pass the admission tests.
+
+37:26.760 --> 37:28.400
+You work through the stage transformations.
+
+37:28.820 --> 37:30.060
+You pass the verifications.
+
+37:30.360 --> 37:32.220
+And finally, you exit through the commit door.
+
+37:32.440 --> 37:33.620
+Like a series of airlocks.
+
+37:34.040 --> 37:34.340
+Yes.
+
+37:34.340 --> 37:37.080
+Each layer filters the possibilities,
+
+37:37.500 --> 37:40.360
+monotonically narrowing down the potential states of chaos
+
+37:40.360 --> 37:43.500
+until you are left with a mathematically pure,
+
+37:44.020 --> 37:45.660
+perfectly audited state change.
+
+37:46.300 --> 37:48.280
+It is just an incredible piece of work.
+
+37:48.620 --> 37:50.820
+It takes the absolute smallest components
+
+37:50.820 --> 37:52.480
+of writing punctuation marks
+
+37:52.480 --> 37:54.820
+and turns them into a fortress of logic.
+
+37:54.980 --> 37:55.620
+It really does.
+
+37:55.880 --> 37:57.700
+Let's summarize the journey we've just been on
+
+37:57.700 --> 37:59.440
+because we covered a lot of ground today.
+
+37:59.720 --> 38:02.280
+We started with the simple idea of Lisk circles,
+
+38:02.280 --> 38:05.540
+the idea that punctuation could do more than just group text.
+
+38:06.040 --> 38:08.620
+From there, we explored Flyxion's mathematically sound
+
+38:08.620 --> 38:10.180
+seven-symbol ASCII alphabet.
+
+38:10.480 --> 38:10.740
+Right.
+
+38:10.940 --> 38:12.960
+A language governed by motion economy,
+
+38:13.180 --> 38:15.480
+where every symbol acts as a physical doorway
+
+38:15.480 --> 38:17.360
+restricting what the machine can do,
+
+38:17.840 --> 38:21.180
+completely preventing the bloat and overlap of modern coding.
+
+38:21.180 --> 38:23.980
+We saw how enforcing a strict static sequence,
+
+38:24.260 --> 38:28.020
+admit, transform, verify, attribute commit,
+
+38:28.580 --> 38:31.080
+creates a perfectly isolated staging area,
+
+38:31.260 --> 38:34.180
+which protects the real world from unverified changes.
+
+38:34.400 --> 38:36.180
+We dove into the immutable ledger,
+
+38:36.400 --> 38:38.280
+learning that even a refused proposal
+
+38:38.280 --> 38:41.220
+is a real historical event that must be recorded.
+
+38:41.380 --> 38:41.720
+Yes.
+
+38:42.100 --> 38:44.960
+And we explored those crucial non-collapse principles,
+
+38:45.380 --> 38:48.020
+reminding us not to confuse a proposal with a realization,
+
+38:48.020 --> 38:50.020
+or the bouncer with the auditor,
+
+38:50.480 --> 38:52.420
+or persistence with objective truth.
+
+38:52.900 --> 38:55.680
+And finally, we saw how the restriction to plain ASCII
+
+38:55.680 --> 38:58.340
+ensures that the visual representation of the code
+
+38:58.340 --> 39:00.700
+is perfectly tied to its execution structure.
+
+39:01.260 --> 39:04.440
+It acts as a permanent, traversable doorway to history
+
+39:04.440 --> 39:07.360
+that doesn't rely on complex graphics to survive.
+
+39:07.360 --> 39:10.360
+It's a brilliant synthesis of syntax and semantics.
+
+39:10.660 --> 39:12.500
+It is a massive amount of theory to process,
+
+39:12.720 --> 39:14.660
+but it fundamentally changes how you look
+
+39:14.660 --> 39:15.880
+at the structure of information.
+
+39:15.880 --> 39:18.260
+Now, before we sign off, I want to leave you,
+
+39:18.400 --> 39:20.520
+the listener, with a final provocative thought
+
+39:20.520 --> 39:21.220
+to mull over.
+
+39:21.720 --> 39:23.580
+Something that builds on this source material,
+
+39:23.920 --> 39:26.000
+but takes it completely out of the realm of computers.
+
+39:26.420 --> 39:27.200
+Oh, I'm intrigued.
+
+39:27.380 --> 39:28.820
+Think about our opening.
+
+39:29.340 --> 39:32.600
+The idea of a document that isn't just descriptive ink,
+
+39:32.660 --> 39:34.180
+but structural walls.
+
+39:35.040 --> 39:37.280
+If Flyxion can create an ASCII system
+
+39:37.280 --> 39:39.460
+where the text itself inherently proves
+
+39:39.460 --> 39:40.980
+its own structural history,
+
+39:41.380 --> 39:44.000
+where the grammar makes illegal histories
+
+39:44.000 --> 39:45.680
+physically impossible to execute,
+
+39:46.180 --> 39:49.180
+imagine applying the principle of motion economy
+
+39:49.180 --> 39:52.160
+and bounded transitions to human systems.
+
+39:52.160 --> 39:53.780
+That is a staggering leap.
+
+39:53.900 --> 39:56.480
+I mean, human systems are famously unbound.
+
+39:56.700 --> 39:57.060
+They are.
+
+39:57.200 --> 39:57.680
+They're messy.
+
+39:58.000 --> 39:59.620
+But what if our legal contracts,
+
+39:59.780 --> 40:00.800
+our corporate policies,
+
+40:00.960 --> 40:02.560
+or even our political legislations
+
+40:02.560 --> 40:03.980
+were written in a language
+
+40:03.980 --> 40:05.260
+where the grammar itself
+
+40:05.260 --> 40:06.600
+made it physically impossible
+
+40:06.600 --> 40:07.820
+to execute a change
+
+40:07.820 --> 40:09.640
+without a structurally valid,
+
+40:09.920 --> 40:10.900
+unorphaned witness?
+
+40:11.040 --> 40:11.460
+Oh, wow.
+
+40:11.460 --> 40:14.000
+What if a CEO literally could not mutate
+
+40:14.000 --> 40:16.040
+a corporate-staged store, say,
+
+40:16.340 --> 40:17.980
+moving millions in company funds
+
+40:17.980 --> 40:19.260
+without passing a strict,
+
+40:19.740 --> 40:21.160
+verifiable admission test
+
+40:21.160 --> 40:23.640
+built into the very syntax of their authority?
+
+40:23.760 --> 40:25.520
+That would change corporate governance overnight.
+
+40:25.860 --> 40:27.460
+What if a law couldn't be enacted
+
+40:27.460 --> 40:29.140
+unless the relational verification
+
+40:29.140 --> 40:30.740
+of its economic impact
+
+40:30.740 --> 40:31.920
+was statically checked
+
+40:31.920 --> 40:33.200
+before the final commit?
+
+40:34.160 --> 40:35.540
+How would society change
+
+40:35.540 --> 40:37.300
+if our laws weren't just guidelines
+
+40:37.300 --> 40:38.520
+we hoped people followed,
+
+40:38.660 --> 40:39.580
+but were actual,
+
+40:39.820 --> 40:41.720
+executable, bounded transitions?
+
+40:42.220 --> 40:44.080
+It moves the burden of compliance
+
+40:44.080 --> 40:45.860
+from post-event auditing
+
+40:45.860 --> 40:48.400
+to pre-event physical impossibility.
+
+40:48.700 --> 40:49.060
+Exactly.
+
+40:49.580 --> 40:50.460
+It's something to think about
+
+40:50.460 --> 40:51.780
+the next time you sign a contract,
+
+40:52.100 --> 40:52.900
+read a piece of code,
+
+40:52.980 --> 40:53.300
+or, you know,
+
+40:53.380 --> 40:55.340
+just look at a parenthesis on a page.
+
+40:55.760 --> 40:57.160
+Thank you so much for joining us
+
+40:57.160 --> 40:58.440
+on this intellectual deep dive.
+
+40:58.640 --> 40:59.320
+We hope it gave you
+
+40:59.320 --> 41:00.280
+the perspective shift
+
+41:00.280 --> 41:01.060
+you were looking for.
+
+41:01.360 --> 41:02.560
+Keep questioning the boundaries.
+

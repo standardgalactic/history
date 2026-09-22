@@ -1,12 +1,22 @@
-# History Computation Visualizations
+# History
 
-[From Wave Dynamics to Continuation Dynamics](https://standardgalactic.github.io/research-projects/history/wave_to_continuation_dynamics.pdf)
+[Following the Evaluator](https://standardgalactic.github.io/history/following-the-evaluator.pdf)
 
-* [Retro Comic Infographic Summary](https://standardgalactic.github.io/research-projects/history/continuation-dynamics-comic.pdf)
+[Ablation Invariance](https://standardgalactic.github.io/history/ablation_invariance.pdf)
 
-[Terminal and Traversal Dependent Texts](https://standardgalactic.github.io/research-projects/history/terminal-and-traversal.pdf)
+[Geometry of Cellular Possibility](https://standardgalactic.github.io/history/geometry-of-cellular-possibility.pdf)
 
-[Repair Categories](https://standardgalactic.github.io/research-projects/history/repair-categories.pdf)
+[Decadence as Transformation](https://standardgalactic.github.io/history/decadence-as-transformation.pdf)
+
+![](decadence-infographic.png)
+
+[From Wave Dynamics to Continuation Dynamics](https://standardgalactic.github.io/history/wave_to_continuation_dynamics.pdf)
+
+* [Retro Comic Infographic Summary](https://standardgalactic.github.io/history/continuation-dynamics-comic.pdf)
+
+[Terminal and Traversal Dependent Texts](https://standardgalactic.github.io/history/terminal-and-traversal.pdf)
+
+[Repair Categories](https://standardgalactic.github.io/history/repair-categories.pdf)
 
 <!--
 ![](generating-futures.png)
@@ -14,7 +24,7 @@
 ![](terminal-and-traversal.png)
 -->
 
-[Complex Systems](https://standardgalactic.github.io/research-projects/history/overview/) — *Audio Overview*
+[Complex Systems](https://standardgalactic.github.io/history/overview/) — *Audio Overview*
 
 This repository contains scripts used to generate visualizations for research into **history-based models of computation**.
 The figures illustrate structures such as event histories, merge operations, constraint dynamics, and history lattices.
@@ -23,7 +33,7 @@ The figures illustrate structures such as event histories, merge operations, con
 
 You can explore the rendered visualizations in a retro terminal-style viewer here:
 
-**https://standardgalactic.github.io/research-projects/history/**
+**https://standardgalactic.github.io/history/**
 
 The page displays generated figures from this repository, including:
 
