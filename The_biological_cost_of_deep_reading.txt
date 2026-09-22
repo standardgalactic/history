@@ -34,7 +34,7 @@ Yeah.
 It is a big one.
 It is huge.
 We are going to figure out what is actually happening to our brains and to our broader culture when everyone keeps talking about the quote-unquote death of reading.
-Our foundational text for this exploration is a brilliant, highly disruptive paper published in July 2026 by an author writing under the name Flixion.
+Our foundational text for this exploration is a brilliant, highly disruptive paper published in July 2026 by an author writing under the name Flyxion.
 Such a good paper.
 It really is.
 It is titled Terminal and Traversal Dependent Texts, A Theory of What Reading Actually Costs.
@@ -47,7 +47,7 @@ It explains the underlying mechanics of why a text message feels completely diff
 Right.
 And it also brilliantly explains a very specific modern frustration, which is why so many of those AI-generated document summaries leave you feeling totally hollow.
 Like, you technically got the facts, but you entirely missed the point.
-The first barrier we have to dismantle, which Flixion tackles right out the gate, is the monolithic concept of reading itself.
+The first barrier we have to dismantle, which Flyxion tackles right out the gate, is the monolithic concept of reading itself.
 We have to stop treating reading as a single uniform verb.
 The central argument is that the cultural panic over the death of reading is a misdiagnosis because it assumes reading is just one thing and that this one thing is disappearing.
 Right.
@@ -76,7 +76,7 @@ If we look at the actual neuroscience and cognitive psychology, what exactly is 
 What separates the fast food from the complex carbohydrates in our brains?
 That is the crux of the entire paper.
 Yeah.
-Fliction argues that when our brains encounter structured information, whether that is a sentence, a line of code, or a sequence of events, we employ one of two entirely distinct processing modes.
+Flyxion argues that when our brains encounter structured information, whether that is a sentence, a line of code, or a sequence of events, we employ one of two entirely distinct processing modes.
 Okay.
 The first mode is called recognition. The second mode is called traversal.
 So, recognition and traversal. Let us dig really deep into both of these because literally everything else we talk about today hinges on understanding this biological difference.
@@ -126,7 +126,7 @@ a wind's arrival at its pointed expected time. It can mean a delayed rainfall th
 for. Yes. Or, and this is the one that really stuck with me, it can mean the act of holding a thing
 until a month passes and its true nature or meaning can finally be determined. A delayed rainfall.
 Holding something until time resolves what it is.
-What fliction extracts from that linguistic spectrum is breathtaking.
+What Flyxion extracts from that linguistic spectrum is breathtaking.
 The underlying structural concept connecting all those seemingly disparate definitions,
 reading a text, waiting for a delayed rain, holding a situation in suspense for a month,
 is the act of retention pending later resolution.
@@ -214,7 +214,7 @@ Mathematical proofs, philosophical treatises, complex legal arguments, narrative
 In these texts, order is everything.
 You cannot skip around because earlier segments establish the definitions, the constraints, and
 the premises that dictate how you must interpret the later segments.
-What is fascinating here is Fliction provides a very stark, practical example in the paper
+What is fascinating here is Flyxion provides a very stark, practical example in the paper
 regarding system complexity to illustrate how fragile these structures are.
 Right.
 I believe you have the exact quote right.
@@ -230,7 +230,7 @@ to repair.
 You have lost essentially zero meaning.
 The premise and the conclusion are so tightly coupled, they function as a single unit of recognition.
 Right.
-But the infliction expands the text to make it heavily traversal dependent.
+But the Flyxion expands the text to make it heavily traversal dependent.
 Here is the expanded traversal dependent version.
 Every system accumulates complexity over time.
 However, much of what appears to be complexity is really retained history.
@@ -342,7 +342,7 @@ It is like crossing a river by jumping across a series of stepping stones.
 I am scanning the page for headers, bold text, or transition words, the specific stones that
 will get me across the river, while intentionally ignoring all the predictable, low information
 water flowing between them.
-That is a phenomenal analogy, and Fliction makes a very similar argument.
+That is a phenomenal analogy, and Flyxion makes a very similar argument.
 Skimming, when done by an expert, is not lazy reading.
 It is traversal highly concentrated at the specific points of maximum information density.
 Okay.
@@ -369,7 +369,7 @@ We give up.
 We abandon the text.
 We close the tab.
 We put the book down.
-Flickshon reveals that there are two entirely different psychological reasons why we quit
+Flyxion reveals that there are two entirely different psychological reasons why we quit
 a traversal process.
 The paper distinguishes between the system's rate, which is the speed we just talked about,
 and the system's threshold, which is the breaking point.
@@ -421,7 +421,7 @@ I have the time, I have the brain power, but my closure threshold is so low
 that I cannot endure the two hours of ambiguity the director designed for me.
 I deliberately break the traversal just to relieve my anxiety.
 That is a perfect, harmless example of closure failure.
-But Fliction provides a much more consequential, real-world case study
+But Flyxion provides a much more consequential, real-world case study
 to demonstrate how resource failure and closure failure operate completely independently of one another.
 The author examines the cognitive mechanics of conspiratorial inquiry.
 And just a quick disclaimer for you listening,
@@ -442,7 +442,7 @@ They clearly are not suffering from resource failure.
 They are not falling asleep with the book on their face.
 Exactly.
 Their resource capacity is exceptionally high.
-However, Flickshin points out that their tolerance for keeping competing contradictory hypotheses alive,
+However, Flyxion points out that their tolerance for keeping competing contradictory hypotheses alive,
 their closure threshold, is often incredibly low.
 When they encounter mundane ambiguity, contradictory evidence,
 or the chaotic, unscripted randomness of real life,
@@ -511,9 +511,9 @@ I wanted to.
 Right.
 But sometimes I look at it and think, this is a disaster.
 I should just use AI to summarize all this and make it clean.
-But Fliction is arguing that would be a terrible idea, right?
+But Flyxion is arguing that would be a terrible idea, right?
 It would be a catastrophic loss of personal meaning.
-If we connect this to the bigger picture, Fliction fundamentally reframes curatorial acts, note-taking, highlighting bookmarking, not as objective records of the past, but as chronological bets.
+If we connect this to the bigger picture, Flyxion fundamentally reframes curatorial acts, note-taking, highlighting bookmarking, not as objective records of the past, but as chronological bets.
 Chronological bets.
 There are bets made under deep uncertainty about what specific fragments of information will become load-bearing to your future self.
 But wait, let me push back on that.
@@ -560,13 +560,13 @@ Instantly, you snap into traversal.
 You have to slow down, assess the terrain, and calculate a new dependency path.
 It is the exact same dependency tracing mechanism we use for reading, just applied to physical, spatial, or causal structures instead of logical or grammatical ones.
 We are always traversing structures.
-But this is where Flixian pushes the theory to its absolute precipice, venturing into the realm of the unauthored.
+But this is where Flyxion pushes the theory to its absolute precipice, venturing into the realm of the unauthored.
 And this section is where the paper identifies the definitive terrifying limit of its own theory.
 Here is where it gets really interesting, the divination section.
 When I hit this part of the paper, I practically jumped out of my chair.
 The author starts talking about ancient practices like augury, reading tea leaves, palmistry, and drawing lots.
 Let us loop back to that classical Arabic root we discussed in the beginning, kurhamza.
-Flixian points out an astonishing lexographic detail.
+Flyxion points out an astonishing lexographic detail.
 Several historical dictionaries associate this specific root, the root word for reading, reciting, and holding in suspense, with sensory practices that in English we would unequivocally categorize as divination.
 Okay.
 It encompasses the act of reading an outcome or destiny from a physical object rather than from a written text.
@@ -613,7 +613,7 @@ we are forced to look with very clear eyes at the cultural shift happening right
 Which brings us back to the premise we started with.
 The fear is not that people are forgetting how to read the alphabet.
 The fear is that this specific capability, the endurance record for traversal, is under existential threat.
-But Fliction is very careful to clarify that we are not in a replacement scenario.
+But Flyxion is very careful to clarify that we are not in a replacement scenario.
 Exactly.
 It is a common fallacy to think new media simply replaces old media.
 Traversal-dependent objects have not been eradicated.
@@ -629,7 +629,7 @@ But in the modern information ecosystem, what defines fitness?
 Fitness in our current environment is defined by the capacity for fast, frictionless transmission.
 If you look at what naturally survives being heavily compressed, what survives the partial attention of a scrolling user,
 what survives being screenshotted, ripped out of its original context, and reposted across five different platforms,
-it is exclusively what Fliction calls recognition-stable objects.
+it is exclusively what Flyxion calls recognition-stable objects.
 Memes, slogans, corporate logos, 10-second out-of-context video clips.
 A meme is the ultimate recognition-stable object.
 It makes complete sense, even if you encounter it randomly on a timeline with no surrounding text.
@@ -730,7 +730,7 @@ allowing it to statistically mimic the shape of a setup and payoff without actua
 Huh.
 Stochastic mimicry versus actual dependency holding.
 Exactly.
-Fliction suggests that LLMs might only locally resemble a valid traversal structure.
+Flyxion suggests that LLMs might only locally resemble a valid traversal structure.
 They string together sentences that sound perfectly fluent, grammatical, and logical on a local sentence-to-sentence level.
 But if you stress test the macro structure, if you try to pull out an early segment to see if the distant logic collapses,
 you might find that the true intentional dependency is not actually holding the structure up.
@@ -758,7 +758,7 @@ Let us synthesize this and bring it all together for you, the listener.
 If you take away anything from this deep dive, let it be a profound sense of grace for yourself.
 Your attention span is not fundamentally broken.
 You are a biological organism trying to execute highly expensive traversal-dependent processing in an ambient environment ruthlessly designed to reward cheap recognition-stable noise.
-But surviving this cultural shift, according to Fliction, requires deliberate defensive action.
+But surviving this cultural shift, according to Flyxion, requires deliberate defensive action.
 The individual mandates are very clear.
 First, you must aggressively protect and fund your refugia.
 Seek out and support the quiet spaces, the long-form discussions, the slow publications, and the communities where sustained attention is the norm.

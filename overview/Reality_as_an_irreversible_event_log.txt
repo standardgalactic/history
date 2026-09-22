@@ -17,7 +17,7 @@ information fields and strictly irreversible histories of execution it's wild to
 it is a radical ontological pivot honestly if we connect this to the bigger picture we are fundamentally
 talking about abandoning a universe constructed of things in favor of a universe constructed of
 cascading commitment cascading commitments i love that phrase accurate though we are examining a triad
-of theoretical papers today published in march of 2026 by the author fliction a heavy hitters very heavy
+of theoretical papers today published in march of 2026 by the author Flyxion a heavy hitters very heavy
 the papers are titled evolutionary development in the relativistic scalar vector plenum
 structured irreversibility and execution history and production like the mouthful they are dense
 but together they present this incredibly unified framework they essentially attempt to resolve the
@@ -61,7 +61,7 @@ they're cheating well they're following the physical properties of the system th
 exactly these thermodynamic rules create a massive steep attractor basin the stochastic thermal jetter of the molecule allows it to explore localized microstates but the macro thermodynamic constraints relentlessly pull it down the funnel into that singular stable configuration right and we see the exact same geometric convergence at the macro biological level too like convergent evolution yes
 convergent evolution is essentially the macroscopic evidence of deep developmental attractor basins i mean why do we see the camera style eye evolving independently multiple times across entirely different phylogenies like invertebrates and cephalopods or the independent evolution of powered flight in pterosaurs bats and birds it is not a coincidence the physics of photon
 the evolution of morphological valleys in pterosaurs bats and birds it is not a coincidence the evolution of morphological valleys in the fitness landscape the evolutionary process wanders aimlessly but whenever a lineage stumbles into the gradient of aerodynamic efficiency
-the developmental constraints of physical reality drag it toward the same optimal morphological solution every single time which is just so cool it is and fliction takes this evo-devo duality this interplay between stochastic exploration and deterministic constraint and scales it all the way down to the foundational substrate and scales it all the way down
+the developmental constraints of physical reality drag it toward the same optimal morphological solution every single time which is just so cool it is and Flyxion takes this evo-devo duality this interplay between stochastic exploration and deterministic constraint and scales it all the way down to the foundational substrate and scales it all the way down
 to the foundational substrate of physics and this is where the paper introduces the relativistic scalar vector plenum the rsvp yes the rsvp framework which is an explicit rejection of discrete ontology meaning no objects right it argues that reality is not composed of isolated particles separated by a vacuum instead the universe is a continuous irreducible plenum a fully saturated medium exactly defined by three universe
 adversely interacting fields that govern the distribution and flow of information and those three fields map so elegantly to the forces of potential movement and dissipation
 let's break them down so first we have the scalar field denoted mathematically by the greek letter phi this field represents structural density or localized potential it basically dictates the capacity for a specific coordinate in the plenum to gather and sustain organization where structure can happen
@@ -89,7 +89,7 @@ This was a fascinating section.
 Yeah, we typically understand hormesis in biology and toxicology as the phenomenon where a low dose of a stressor or toxin
 actually induces a beneficial adaptive response in an organism,
 like exercise tearing muscles so they grow back stronger.
-But fliction models hormesis mathematically as the process by which Elamfron deepens its own attractor basin.
+But Flyxion models hormesis mathematically as the process by which Elamfron deepens its own attractor basin.
 Explain that.
 So when a perturbation, say, a spike in the local entropy field or a disruption in the vector flow strikes a Lamfron,
 the vortex is temporarily deformed.
@@ -370,7 +370,7 @@ how do we avoid a chaotic, fragmented reality?
 How do these localized, subjective histories reconcile into a single, objective universe?
 Exactly.
 And the text addresses this through the concepts of meld and worldhood.
-To mathematically resolve this, fliction applies sheaf theory.
+To mathematically resolve this, Flyxion applies sheaf theory.
 Which is a branch of topology concerned with tracking locally defined data and stitching it together into globally consistent structures.
 In a distributed network, each node maintains its own localized event log, its own sequence of choices and constraints.
 A meld is the specific mathematical operation of overlapping the boundaries of these local histories to check for causal consistency.

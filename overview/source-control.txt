@@ -54,7 +54,7 @@ This framework aims to unify various phenomena across physical, biological, and 
 
 ### Reality_as_an_irreversible_event_log
 
-The text presents a profound theoretical framework by an author named Fliction, published in March 2026, that challenges our traditional understanding of reality. This framework is built on three key papers titled "Evolutionary Development in the Relativistic Scalar Vector Plenum," "Structured Irreversibility and Execution History," and "Production."
+The text presents a profound theoretical framework by an author named Flyxion, published in March 2026, that challenges our traditional understanding of reality. This framework is built on three key papers titled "Evolutionary Development in the Relativistic Scalar Vector Plenum," "Structured Irreversibility and Execution History," and "Production."
 
 1. **Evo-Devo Framework & RSVP (Relativistic Scalar Vector Plenum):** The first paper introduces an evo-devo framework, which is a duality of evolutionary exploration and developmental constraints. Evolution generates noise, diversity, and vast possibilities, while development ensures convergence into specific, stable configurations. This concept is scaled up to the foundational level of physics with the RSVP model, rejecting discrete ontology. Instead, it posits that reality is a continuous irreducible plenum composed of three interacting fields: scalar (structural density), vector (directional flow), and entropy (dispersion/decay).
 
@@ -68,7 +68,7 @@ The text presents a profound theoretical framework by an author named Fliction, 
 
 6. **SPHERPOP & Generators of Choice:** The third paper introduces SPHERPOP (Space, Population, History, Entropy, Reduction Of Potential), a formal language for tracking how systems make irreversible choices using four generators: POP (definitive elimination of options), REFUSE (deliberate non-selection with recorded tag), BIND (topological coupling between variables), and COLLAPSE (merging equivalent futures).
 
-7. **Meld & Worldhood:** To resolve the challenge of maintaining a consistent, unified reality amidst independent local histories, Fliction applies sheaf theory. Each node maintains its own history; a 'meld' checks for causal consistency between these histories, and 'worldhood' is achieved when all histories agree without contradiction.
+7. **Meld & Worldhood:** To resolve the challenge of maintaining a consistent, unified reality amidst independent local histories, Flyxion applies sheaf theory. Each node maintains its own history; a 'meld' checks for causal consistency between these histories, and 'worldhood' is achieved when all histories agree without contradiction.
 
 8. **Realization Functor:** The final paper unifies the discrete computational algebra of SPHERPOP with the continuous RSVP plenum using a realization functor (F), proving that system choices are literal physical field deformations, linked to Landauer's principle—the erasure of information requires minimum thermodynamic cost, generating physical heat.
 
